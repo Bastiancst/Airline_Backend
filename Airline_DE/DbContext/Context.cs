@@ -17,9 +17,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Airline_DE.DbContext
 {
-    public class DbContext : IdentityDbContext<User>
+    public class Context : IdentityDbContext<User>
     {
-        public DbContext(DbContextOptions<DbContext> options) : base(options)
+        public Context(DbContextOptions<Context> options) : base(options)
         {
 
         }

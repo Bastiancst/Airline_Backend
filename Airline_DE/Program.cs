@@ -1,4 +1,34 @@
+using Azure.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
+
+#region Variables
+var SpecificOrigins = "_myAllowSpecificOrigins";
+
+string connectionString = "";
+string? identityToken = "";
+string sqlUsername = "";
+string sqlCatalog = "";
+string? sqlPassword = "";
+string sqlDatabase = "";
+string? emailToken = "";
+
+#endregion
+
+#region Envionments
+if (builder.Environment.IsProduction())
+{
+
+}
+else if (builder.Environment.IsStaging())
+{
+
+}
+else
+{
+
+}
+#endregion
 
 // Add services to the container.
 
