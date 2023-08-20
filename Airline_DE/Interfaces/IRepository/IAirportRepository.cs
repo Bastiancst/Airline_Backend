@@ -3,8 +3,8 @@ using Airline_DE.Models.Airport;
 
 namespace Airline_DE.Interfaces.IRepository
 {
-    public interface IAirplaneRepository : IRepository<Airplane>
+    public interface IAirportRepository : IRepository<Airport>
     {
-        Task<Airplane> UpdateAsync(Airplane entity);
+        Task<Airport> UpdateAsync(Airport entity);
     }
 }
