@@ -1,5 +1,7 @@
 using Airline_DE.Settings;
 using Airline_DE.Extensions;
+using Microsoft.EntityFrameworkCore;
+using Airline_DE.DbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,7 +66,7 @@ EmailSettings.Server = builder.Configuration["Email:Server"];
 EmailSettings.User = builder.Configuration["Email:User"];
 
 //connectionString = $"Server = tcp:{sqlDatabase},1433; Initial Catalog = {sqlCatalog}; Persist Security Info = False; User ID = {sqlUsername}; Password = {sqlPassword}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
-connectionString = "Server=.;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
+connectionString = "Server=BASTIAN;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
 ConnectionStringSettings.ConnectionString = connectionString;
 
 DomainSettings.ConfirmEmailRedirectDomain = confirmEmailDomain;
@@ -80,6 +82,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServiceExtension(builder.Configuration);
+builder.Services.AddDbContext<Context>(option =>
+{
+    option.UseSqlServer(ConnectionStringSettings.ConnectionString);
+});
 
 var app = builder.Build();
 

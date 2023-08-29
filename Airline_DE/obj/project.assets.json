@@ -3535,19 +3535,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Martin\\.nuget\\packages\\": {}
+    "C:\\Users\\basti\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Developing\\repositories\\Airline D&E\\Airline_Backend\\Airline_DE\\Airline_DE.csproj",
+      "projectUniqueName": "C:\\Users\\basti\\OneDrive\\Documents\\GitHub\\Airline_Backend\\Airline_DE\\Airline_DE.csproj",
       "projectName": "Airline_DE",
-      "projectPath": "C:\\Developing\\repositories\\Airline D&E\\Airline_Backend\\Airline_DE\\Airline_DE.csproj",
-      "packagesPath": "C:\\Users\\Martin\\.nuget\\packages\\",
-      "outputPath": "C:\\Developing\\repositories\\Airline D&E\\Airline_Backend\\Airline_DE\\obj\\",
+      "projectPath": "C:\\Users\\basti\\OneDrive\\Documents\\GitHub\\Airline_Backend\\Airline_DE\\Airline_DE.csproj",
+      "packagesPath": "C:\\Users\\basti\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\basti\\OneDrive\\Documents\\GitHub\\Airline_Backend\\Airline_DE\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Martin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\basti\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3659,7 +3659,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
