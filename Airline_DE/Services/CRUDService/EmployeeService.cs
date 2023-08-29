@@ -54,14 +54,38 @@ namespace Airline_DE.Services.CRUDService
 
         }
 
-        public Task<ApiResponse<Employee>> UpdateAsync(UpdateEmployeeDTO employee)
+        public async Task<ApiResponse<Employee>> UpdateAsync(UpdateEmployeeDTO request, Guid id)
         {
-            throw new NotImplementedException();
+            var result = await _employeeRepository.GetAsync(u => u.Id == id);
+
+            if (request == null)
+            {
+                return new ApiResponse<Employee>("User not found");
+            }
+
+            result.Rut = request.Rut;
+            result.Name= request.Name;
+            result.LastName = request.LastName;
+            result.Age = request.Age;
+            result.Email = request.Email;
+            result.WorkPosition = request.WorkPosition;
+            result.Role= request.Role;
+            result.Country= request.Country;
+            result.City = request.City;
+            result.Bonus = request.Bonus;
+
+            await _employeeRepository.UpdateAsync(result);
+
+            return new ApiResponse<Employee>(result);
         }
 
-        public Task<ApiResponse<Employee>> DeleteAsync(Guid employeeId)
+        public async Task<ApiResponse<Guid>> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var result = await _employeeRepository.GetAsync(u => u.Id == id);
+
+            await _employeeRepository.RemoveAsync(result);
+
+            return new ApiResponse<Guid>(result.Id);
         }
     }
 }

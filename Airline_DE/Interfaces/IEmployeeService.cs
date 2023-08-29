@@ -9,7 +9,7 @@ namespace Airline_DE.Interfaces
         Task<ApiResponse<Employee>> CreateAsync(CreateEmployeeDTO employee);
         Task<ApiResponse<Employee>> GetByIdAsync(Guid employeeId);
         Task<ApiResponse<IEnumerable<Employee>>> GetAllAsync();
-        Task<ApiResponse<Employee>> UpdateAsync(UpdateEmployeeDTO employee);
-        Task<ApiResponse<Employee>> DeleteAsync(Guid employeeId);
+        Task<ApiResponse<Employee>> UpdateAsync(UpdateEmployeeDTO employee, Guid id);
+        Task<ApiResponse<Guid>> DeleteAsync(Guid employeeId);
     }
 }

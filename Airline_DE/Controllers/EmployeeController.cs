@@ -53,9 +53,9 @@ namespace Airline_DE.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeDTO request)
+        public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeDTO request, string id)
         {
-            var result = await _employeeService.UpdateAsync(request);
+            var result = await _employeeService.UpdateAsync(request, Guid.Parse(id));
 
             if (result.Success)
             {
