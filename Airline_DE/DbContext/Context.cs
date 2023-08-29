@@ -37,5 +37,6 @@ namespace Airline_DE.DbContext
         public DbSet<Payment> Payments { get ; set; } 
         public DbSet<PlanningCrew> PlanningCrews { get ; set; } 
         public DbSet<Receiver> Receivers { get ; set; } 
+        public DbSet<RecoverPassword> RecoverPasswords { get ; set; } 
     }
 }
