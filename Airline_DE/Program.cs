@@ -63,12 +63,14 @@ EmailSettings.Password = builder.Configuration["Email:Password"];
 EmailSettings.Server = builder.Configuration["Email:Server"];
 EmailSettings.User = builder.Configuration["Email:User"];
 
-connectionString = $"Server = tcp:{sqlDatabase},1433; Initial Catalog = {sqlCatalog}; Persist Security Info = False; User ID = {sqlUsername}; Password = {sqlPassword}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+//connectionString = $"Server = tcp:{sqlDatabase},1433; Initial Catalog = {sqlCatalog}; Persist Security Info = False; User ID = {sqlUsername}; Password = {sqlPassword}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+connectionString = "Server=.;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
 ConnectionStringSettings.ConnectionString = connectionString;
 
 DomainSettings.ConfirmEmailRedirectDomain = confirmEmailDomain;
 DomainSettings.AfterConfirmEmailDomain = redirectEmailDomain;
 DomainSettings.RedirectRecoveryDomain = redirectRecoveryDomain;
+
 #endregion
 
 // Add services to the container.
