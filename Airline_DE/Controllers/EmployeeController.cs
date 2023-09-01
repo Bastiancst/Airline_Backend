@@ -41,7 +41,7 @@ namespace Airline_DE.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateReport([FromBody] CreateEmployeeDTO request)
+        public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeDTO request)
         {
             var result = await _employeeService.CreateAsync(request);
 
