@@ -2,6 +2,8 @@ using Airline_DE.Settings;
 using Airline_DE.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Airline_DE.DbContext;
+using Airline_DE.Seeds;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +57,7 @@ else
 #endregion
 
 #region Configurations
-JWTSettings.Key = identityToken;
+JWTSettings.Key = builder.Configuration["JWTSettings:Key"];
 JWTSettings.Issuer = builder.Configuration["JWTSettings:Issuer"];
 JWTSettings.Audience = builder.Configuration["JWTSettings:Audience"];
 JWTSettings.DurationInMinutes = Int32.Parse(builder.Configuration["JWTSettings:DurationInMinutes"]);
@@ -82,6 +84,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServiceExtension(builder.Configuration);
+builder.Services.AddAccountServiceExtension(builder.Configuration);
 builder.Services.AddDbContext<Context>(option =>
 {
     option.UseSqlServer(ConnectionStringSettings.ConnectionString);
@@ -100,6 +103,30 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+SeedDatabase();
+
 app.MapControllers();
 
 app.Run();
+
+
+#region methods
+async void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        try
+        {
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            await SeedRoles.SeedAsync(roleManager);
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+}
+
+#endregion

@@ -1,6 +1,7 @@
 ﻿using Airline_DE.Interfaces;
 using Airline_DE.Interfaces.IRepository;
 using Airline_DE.Repository;
+using Airline_DE.Services.AccountServices;
 using Airline_DE.Services.CRUDService;
 using Airline_DE.Services.EmailService;
 
@@ -13,6 +14,7 @@ namespace Airline_DE.Extensions
             #region Services
             services.AddTransient<IEmailServices, EmailServices>();
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IAccountServices, AccountServices>();
             #endregion
 
             #region Repositories

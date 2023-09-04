@@ -4,6 +4,6 @@ namespace Airline_DE.Models.User
 {
     public class User : IdentityUser
     {
-        public string ImageProfile { get; set; }
+        public string? ImageProfile { get; set; }
     }
 }
