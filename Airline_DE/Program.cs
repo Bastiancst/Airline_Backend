@@ -89,6 +89,16 @@ builder.Services.AddDbContext<Context>(option =>
 {
     option.UseSqlServer(ConnectionStringSettings.ConnectionString);
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: SpecificOrigins,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                      });
+});
 
 var app = builder.Build();
 
@@ -102,6 +112,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(SpecificOrigins);
 
 SeedDatabase();
 
