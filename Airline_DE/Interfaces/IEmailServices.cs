@@ -5,6 +5,6 @@ namespace Airline_DE.Interfaces
 {
     public interface IEmailServices 
     {
-        Task<ApiResponse<string>> SendEmailContactUserAsync(EmailServiceDTO request);
+        Task<ApiResponse<bool>> SendBasicEmailAsync(BasicEmailRequestDTO request);
     }
 }

@@ -8,14 +8,14 @@ namespace Airline_DE.Seeds
     {
         public static async Task SeedAsync(RoleManager<IdentityRole> roleManager)
         {
-            foreach (var role in Enum.GetValues(typeof(RoleType)).Cast<RoleType>())
-            {
-                string currentRole = role.ToString();
-                if (roleManager.FindByIdAsync(currentRole).Result == null)
-                {
-                    await roleManager.CreateAsync(new IdentityRole(currentRole));
-                }
-            }
+            //foreach (var role in Enum.GetValues(typeof(RoleType)).Cast<RoleType>())
+            //{
+            //    string currentRole = role.ToString();
+            //    if (roleManager.FindByIdAsync(currentRole).Result == null)
+            //    {
+            //        await roleManager.CreateAsync(new IdentityRole(currentRole));
+            //    }
+            //}
         }
     }
 }

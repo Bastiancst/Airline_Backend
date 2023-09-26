@@ -15,6 +15,7 @@ namespace Airline_DE.Extensions
             services.AddTransient<IEmailServices, EmailServices>();
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IAccountServices, AccountServices>();
+            services.AddTransient<IClientService, ClientService>();
             #endregion
 
             #region Repositories
@@ -31,6 +32,7 @@ namespace Airline_DE.Extensions
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<IPlanningCrewRepository, PlanningCrewRepository>();
             services.AddTransient<IReceiverRepository, ReceiverRepository>();
+            services.AddTransient<IRecoverPasswordRepository, RecoverPasswordRepository>();
 
             #endregion
 

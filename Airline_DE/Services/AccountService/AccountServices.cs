@@ -13,6 +13,7 @@ using System.Text;
 using Airline_DE.Exceptions;
 using System.Data;
 using Airline_DE.Enums;
+using Airline_DE.Interfaces.IRepository;
 
 namespace Airline_DE.Services.AccountServices
 {
@@ -20,11 +21,12 @@ namespace Airline_DE.Services.AccountServices
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
-        public AccountServices(UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly IRecoverPasswordRepository _recoverPassword;
+        public AccountServices(UserManager<User> userManager, SignInManager<User> signInManager, IRecoverPasswordRepository recoverPassword)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _recoverPassword = recoverPassword;
         }
 
         public async Task<ApiResponse<AuthenticationResponseDTO>> AuthenticateAsync(AuthenticationRequestDTO request, string ipAddress, string domain)
@@ -135,6 +137,7 @@ namespace Airline_DE.Services.AccountServices
         public async Task<ApiResponse<bool>> ConfirmEmailAsync(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
             {
                 return new ApiResponse<bool>($"User not found");
@@ -155,24 +158,136 @@ namespace Airline_DE.Services.AccountServices
             return new ApiResponse<bool>(true, $"User confirmed");
         }
 
-        public Task<ApiResponse<CodeDTO>> GetCodeResetPassword(string email)
+        public async Task<ApiResponse<AuthenticationResponseDTO>> GetCurrentUser(string token, string ip, string domain)
         {
-            throw new NotImplementedException();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTSettings.Key));
+
+            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                IssuerSigningKey = key,
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidIssuer = JWTSettings.Issuer,
+                ValidAudience = JWTSettings.Audience,
+                ClockSkew = TimeSpan.Zero,
+            }, out SecurityToken validatedToken);
+
+            if (DateTime.Compare(validatedToken.ValidTo.Add(TimeSpan.FromMinutes(JWTSettings.DurationInMinutes)), DateTime.UtcNow) <= 0)
+            {
+                throw new ApiException($"Token expired");
+            }
+
+            var Token = (JwtSecurityToken)validatedToken;
+            var email = Token.Claims.First(x => x.Type == "email").Value;
+            var user = await _userManager.FindByEmailAsync(email);
+            JwtSecurityToken jwtSecurityToken = await GenerateJwtToken(user, domain);
+            await _signInManager.SignInAsync(user, false);
+            AuthenticationResponseDTO response = new AuthenticationResponseDTO
+            {
+                JWTtoken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                Email = user.Email,
+                UserName = user.UserName,
+                Id = user.Id,
+                IsVerified = user.EmailConfirmed,
+            };
+
+            var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            response.Roles = rolesList.ToList();
+            response.IsVerified = user.EmailConfirmed;
+            var refreshToken = GenerateRefreshToken(ip);
+            response.RefreshToken = refreshToken.Token;
+            return new ApiResponse<AuthenticationResponseDTO>(response, $"{user.UserName} authenticated");
         }
 
-        public Task<ApiResponse<AuthenticationResponseDTO>> GetCurrentUser(string token, string ip, string domain)
+        public async Task<ApiResponse<CodeDTO>> GetCodeResetPassword(string email)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return new ApiResponse<CodeDTO>($"User not found");
+            }
+            var userRecovers = await _recoverPassword.GetAllAsync(x => x.UserId == Guid.Parse(user.Id));
+
+            foreach (var item in userRecovers)
+            {
+                await _recoverPassword.RemoveAsync(item);
+            }
+
+            string code = GenerateRandomNumericCode(6);
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var resetPassword = new RecoverPassword
+            {
+                RecoveryCode = code,
+                RecoveryToken = token,
+                RecoveryCodeTimeStamp = DateTime.UtcNow,
+                UserId = Guid.Parse(user.Id)
+            };
+
+            await _recoverPassword.CreateAsync(resetPassword);
+
+            var response = new CodeDTO { Email = user.Email, RecoveryCode = code };
+
+            return new ApiResponse<CodeDTO>(response, "Success created recovey code");
         }
 
-        public Task<ApiResponse<bool>> ResetPassword(ResetPasswordDTO request)
+        public async Task<ApiResponse<bool>> ResetPassword(ResetPasswordDTO request)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(request.Email);
+
+            if (user == null)
+            {
+                return new ApiResponse<bool>(false, $"User not found");
+            }
+
+            if (request.Password != request.ConfirmPassword)
+            {
+                return new ApiResponse<bool>(false, $"Passwords do not match");
+            }
+
+            var recoverydata = await _recoverPassword.GetAsync(x => x.RecoveryCode == request.Code);
+
+            if (recoverydata == null)
+            {
+                return new ApiResponse<bool>(false, $"Code not found");
+            }
+
+            var timeCode = DateTime.UtcNow - recoverydata.RecoveryCodeTimeStamp;
+
+            if (timeCode.Minutes > 5)
+            {
+                await _recoverPassword.RemoveAsync(recoverydata);
+                return new ApiResponse<bool>(false, $"Code time expired, plis get new code");
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, recoverydata.RecoveryToken, request.Password);
+            await _recoverPassword.RemoveAsync(recoverydata);
+
+            return new ApiResponse<bool>(true, $"Password changed successfully");
         }
 
-        public Task<ApiResponse<bool>> ValidateCodeResetPassword(ValidateCodeDTO request)
+        public async Task<ApiResponse<bool>> ValidateCodeResetPassword(ValidateCodeDTO request)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(request.Email);
+
+            if (user == null)
+            {
+                return new ApiResponse<bool>(false, $"User not found");
+            }
+
+            var resetExists = await _recoverPassword.GetAsync(x => x.RecoveryCode == request.RecoveryCode && x.UserId == Guid.Parse(user.Id));
+
+            if (resetExists == null)
+            {
+                return new ApiResponse<bool>(false, $"Wrong code");
+            }
+
+            return new ApiResponse<bool>(true, $"Code confirmed");
         }
 
         private async Task<JwtSecurityToken> GenerateJwtToken(User user, string domain)

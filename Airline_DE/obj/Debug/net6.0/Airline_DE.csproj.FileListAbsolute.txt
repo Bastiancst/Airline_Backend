@@ -99,10 +99,8 @@ C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\ne
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Azure.Identity.dll
-C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\FluentValidation.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Humanizer.dll
-C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\MailKit.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -129,7 +127,6 @@ C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\ne
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\MimeKit.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
@@ -140,7 +137,6 @@ C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\ne
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.Memory.Data.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.Runtime.Caching.dll
-C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.Security.Permissions.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.Windows.Extensions.dll
@@ -154,7 +150,6 @@ C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\ne
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\obj\Debug\net6.0\Airline_DE.csproj.AssemblyReference.cache
@@ -178,3 +173,5 @@ C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\obj\Debug\ne
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\obj\Debug\net6.0\Airline_DE.pdb
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\obj\Debug\net6.0\Airline_DE.genruntimeconfig.cache
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\obj\Debug\net6.0\ref\Airline_DE.dll
+C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\SendGrid.dll
+C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\StarkbankEcdsa.dll

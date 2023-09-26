@@ -17,7 +17,7 @@ namespace Airline_DE.Extensions
     {
         public static void AddAccountServiceExtension(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<Context>(options => options.UseSqlServer(ConnectionStringSettings.ConnectionString));
+            services.AddDbContext<Context>(options => options.UseSqlServer(ConnectionSettings.ConnectionString));
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.User.AllowedUserNameCharacters = null;

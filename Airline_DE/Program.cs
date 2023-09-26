@@ -62,14 +62,11 @@ JWTSettings.Issuer = builder.Configuration["JWTSettings:Issuer"];
 JWTSettings.Audience = builder.Configuration["JWTSettings:Audience"];
 JWTSettings.DurationInMinutes = Int32.Parse(builder.Configuration["JWTSettings:DurationInMinutes"]);
 
-EmailSettings.Port = Int32.Parse(builder.Configuration["Email:Port"]);
-EmailSettings.Password = builder.Configuration["Email:Password"];
-EmailSettings.Server = builder.Configuration["Email:Server"];
-EmailSettings.User = builder.Configuration["Email:User"];
+EmailSettings.ApiKey = "";
 
 //connectionString = $"Server = tcp:{sqlDatabase},1433; Initial Catalog = {sqlCatalog}; Persist Security Info = False; User ID = {sqlUsername}; Password = {sqlPassword}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
 connectionString = "Server=.;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
-ConnectionStringSettings.ConnectionString = connectionString;
+ConnectionSettings.ConnectionString = connectionString;
 
 DomainSettings.ConfirmEmailRedirectDomain = confirmEmailDomain;
 DomainSettings.AfterConfirmEmailDomain = redirectEmailDomain;
@@ -87,7 +84,7 @@ builder.Services.AddServiceExtension(builder.Configuration);
 builder.Services.AddAccountServiceExtension(builder.Configuration);
 builder.Services.AddDbContext<Context>(option =>
 {
-    option.UseSqlServer(ConnectionStringSettings.ConnectionString);
+    option.UseSqlServer(ConnectionSettings.ConnectionString);
 });
 builder.Services.AddCors(options =>
 {

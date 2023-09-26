@@ -2,7 +2,9 @@
 using Airline_DE.Models.Email.DTOs;
 using Airline_DE.Models.User.DTOs;
 using Airline_DE.Services.AccountServices;
+using Airline_DE.Settings;
 using Airline_DE.Wrappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -13,10 +15,45 @@ namespace Airline_DE.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountServices _accountService;
+        private readonly IEmailServices _emailService;
 
-        public AccountController(IAccountServices accountServices)
+        public AccountController(IAccountServices accountServices, IEmailServices emailService)
         {
             _accountService = accountServices;
+            _emailService = emailService;
+        }
+
+        
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUserAsync()
+        {
+            try
+            {
+                var rawToken = HttpContext.Request.Headers["Authorization"];
+
+                if (string.IsNullOrEmpty(rawToken))
+                {
+                    return Unauthorized(new { message = "Token is empty" });
+                }
+
+                string domainKey = Request.Headers["domainKey"];
+                string token = rawToken.ToString().Split(" ")[1];
+                string ip = GenerateIPAddress();
+                var result = await _accountService.GetCurrentUser(token, ip, domainKey);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                if (ex is Microsoft.Data.SqlClient.SqlException sqlEx && sqlEx.Number == 40615)
+                {
+                    return BadRequest(new ApiResponse<string>("Error in database"));
+                }
+                var result = new ApiResponse<AuthenticationResponseDTO>();
+                result.Success = false;
+                result.Errors = new List<string>() { ex.ToString() };
+                return BadRequest(result);
+            }
         }
 
         [HttpPost("authenticate")]
@@ -60,17 +97,14 @@ namespace Airline_DE.Controllers
 
                 if (creationResponse.Success)
                 {
-                    //string domain = DomainSettings.ConfirmEmailRedirectDomain;
-                    //string token = WebUtility.UrlEncode(creationResponse.Result.ConfirmToken.Replace("+", "%2B"));
-                    //string confirmUrl = $"{domain}/api/account/confirmemail?id={creationResponse.Result.UserId}&token={token}";
 
-                    //await _emailService.SendBasicEmailAsync(new BasicEmailRequestDTO
-                    //{
-                    //    Subject = "Welcome to Tesseract!",
-                    //    Message = $"Hello! {creationResponse.Result.Username} Welcome to Tesseract Ecosystem! \n please confirm your account with the following URL: \n{confirmUrl}",
-                    //    ReceiverEmail = $"{creationResponse.Result.Email}",
-                    //    ReceiverName = $"{creationResponse.Result.Name}"
-                    //});
+                    await _emailService.SendBasicEmailAsync(new BasicEmailRequestDTO
+                    {
+                        Subject = "Welcome to Tesseract!",
+                        Message = $"Hello! {creationResponse.Result.UserId} Welcome to Tesseract Ecosystem! \n please confirm your account with the following URL: \n",
+                        ReceiverEmail = $"{creationResponse.Result.Email}",
+                        ReceiverName = $"{creationResponse.Result.Email}"
+                    });
 
                     return Ok(creationResponse);
                 }
@@ -84,6 +118,97 @@ namespace Airline_DE.Controllers
                 result.Errors = new List<string>() { ex.ToString() };
                 return BadRequest(result);
             }
+        }
+
+        [HttpGet("confirmemail")]
+        public async Task<IActionResult> ConfirmEmail(string id, string token)
+        {
+            try
+            {
+                token = WebUtility.UrlDecode(token).Replace("%2B", "+");
+                var result = await _accountService.ConfirmEmailAsync(id, token);
+                if (result.Success)
+                {
+                    if (result.Message == $"User has already been confirmed")
+                    {
+                        return Redirect(DomainSettings.AfterConfirmEmailDomain);
+                    }
+                    
+                    //await _emailService.SendBasicEmailAsync(new BasicEmailRequestDTO
+                    //{
+                    //    Subject = "Tesseract account confirmed!",
+                    //    Message = $"hi {user.Name}, your account is now confirmed!",
+                    //    ReceiverEmail = $"{user.Email}",
+                    //    ReceiverName = $"{user.Name}"
+                    //});
+
+                    return Redirect(DomainSettings.AfterConfirmEmailDomain);
+                }
+                else
+                {
+                    return BadRequest(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex is Microsoft.Data.SqlClient.SqlException sqlEx && sqlEx.Number == 40615)
+                {
+                    return BadRequest(new ApiResponse<string>("Error in database"));
+                }
+                var result = new ApiResponse<bool>();
+                result.Success = false;
+                result.Errors = new List<string>() { ex.ToString() };
+                return BadRequest(result);
+            }
+        }
+
+        [HttpPost("recoverycode")]
+        public async Task<IActionResult> RecoverCodeAccount(string email)
+        {
+            var getCode = await _accountService.GetCodeResetPassword(email);
+
+            if (getCode.Success)
+            {
+                await _emailService.SendBasicEmailAsync(new BasicEmailRequestDTO
+                {
+                    Subject = "Tesseract Account Recovery",
+                    Message = $"Hello! \n This is your recovery code: \n {getCode.Result.RecoveryCode}",
+                    ReceiverEmail = $"{getCode.Result.Email}",
+                    ReceiverName = $"{getCode.Result.Email}"
+                });
+
+                return Ok(getCode);
+            }
+
+            return BadRequest(getCode);
+        }
+
+        [HttpPost("validatecode")]
+        public async Task<IActionResult> ValidateCodeAccount(ValidateCodeDTO request)
+        {
+            var code = await _accountService.ValidateCodeResetPassword(request);
+
+            if (code.Result)
+            {
+                return Ok(code);
+            }
+
+            code.Success = false;
+            return BadRequest(code);
+        }
+
+        [HttpPost("resetpassword")]
+        public async Task<IActionResult> ResetCodePasswordAccount(ResetPasswordDTO request)
+        {
+            var code = await _accountService.ResetPassword(request);
+
+            if (code.Result)
+            {
+                return Ok(code);
+            }
+
+            code.Success = false;
+            return BadRequest(code);
         }
 
         #region private methods
