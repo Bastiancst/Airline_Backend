@@ -24,21 +24,20 @@ namespace Airline_DE.Controllers
         }
 
         
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetCurrentUserAsync()
+        [HttpPost("user")]
+        public async Task<IActionResult> GetCurrentUserAsync(string token)
         {
             try
             {
-                var rawToken = HttpContext.Request.Headers["Authorization"];
+                //var rawToken = HttpContext.Request.Headers["Authorization"];
 
-                if (string.IsNullOrEmpty(rawToken))
-                {
-                    return Unauthorized(new { message = "Token is empty" });
-                }
+                //if (string.IsNullOrEmpty(rawToken))
+                //{
+                //    return Unauthorized(new { message = "Token is empty" });
+                //}
 
                 string domainKey = Request.Headers["domainKey"];
-                string token = rawToken.ToString().Split(" ")[1];
+                //string tokena = token.ToString().Split(" ")[1];
                 string ip = GenerateIPAddress();
                 var result = await _accountService.GetCurrentUser(token, ip, domainKey);
                 return Ok(result);

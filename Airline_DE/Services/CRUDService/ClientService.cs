@@ -22,7 +22,7 @@ namespace Airline_DE.Services.CRUDService
         {
             var newClient = new Client
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse(client.Id),
                 Addres = client.Addres,
                 Email = client.Email,
                 Name = client.Name,
@@ -40,6 +40,11 @@ namespace Airline_DE.Services.CRUDService
         {
             var result = await _clienRepository.GetAsync(u => u.Id == id);
 
+            if (result == null)
+            {
+                return new ApiResponse<Guid>("Client not found");
+            }
+
             await _clienRepository.RemoveAsync(result);
 
             return new ApiResponse<Guid>(result.Id);
@@ -56,26 +61,39 @@ namespace Airline_DE.Services.CRUDService
         {
             var result = await _clienRepository.GetAsync(u => u.Id == clientId);
 
+            if (result == null)
+            {
+                return new ApiResponse<Client>("Client not found");
+            }
+
             return new ApiResponse<Client>(result);
         }
 
         public async Task<ApiResponse<Client>> UpdateAsync(UpdateClientDTO request, Guid id)
         {
-            var result = await _clienRepository.GetAsync(u => u.Id == id);
-
-            if (request == null)
+            try
             {
-                return new ApiResponse<Client>("User not found");
+                var result = await _clienRepository.GetAsync(u => u.Id == id);
+
+                if (request == null)
+                {
+                    return new ApiResponse<Client>("User not found");
+                }
+
+                result.Name = request.Name;
+                result.PhoneNumber = request.PhoneNumber;
+                result.Addres = request.Addres;
+                result.Email = request.Email;
+
+                await _clienRepository.UpdateAsync(result);
+
+                return new ApiResponse<Client>(result);
             }
+            catch (Exception ex)
+            {
 
-            result.Name = request.Name;
-            result.PhoneNumber = request.PhoneNumber;  
-            result.Addres = request.Addres;
-            result.Email = request.Email;
-
-            await _clienRepository.RemoveAsync(result);
-
-            return new ApiResponse<Client>(result);
+                return new ApiResponse<Client>("efe");
+            }
         }
     }
 }

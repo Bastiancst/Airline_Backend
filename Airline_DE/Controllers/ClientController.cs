@@ -17,7 +17,7 @@ namespace Airline_DE.Controllers
             _clientService = clientService;
         }
 
-        [HttpGet]
+        [HttpPost("get")]
         public async Task<IActionResult> GetAllEmployees()
         {
             var result = await _clientService.GetAllAsync();
@@ -29,7 +29,7 @@ namespace Airline_DE.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> GetEmployee(string id)
         {
             var result = await _clientService.GetByIdAsync(Guid.Parse(id));
