@@ -2,8 +2,11 @@
 using Airline_DE.Interfaces.IRepository;
 using Airline_DE.Models.Assignment;
 using Airline_DE.Models.Assignment.DTOs;
+using Airline_DE.Models.Employee;
 using Airline_DE.Models.Receiver;
+using Airline_DE.Repository;
 using Airline_DE.Wrappers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Airline_DE.Services.CRUDService
 {
@@ -16,6 +19,18 @@ namespace Airline_DE.Services.CRUDService
         {
             _assignment = assignment;
             _receiver = receiver;
+        }
+
+        public async Task<ApiResponse<IEnumerable<Assignment>>> GetAllAsync(Guid clienId)
+        {
+            var result = await _assignment.GetAllAsync(u => u.ClientId == clienId);
+            return new ApiResponse<IEnumerable<Assignment>>(result);
+        }
+        public async Task<ApiResponse<Assignment>> GetByIdAsync(Guid clienId)
+        {
+            var result = await _assignment.GetAsync(u => u.Id == clienId);
+
+            return new ApiResponse<Assignment>(result);
         }
 
         public async Task<ApiResponse<Guid>> CreateAsync(CreateAssignmentDTO request, Guid clientId)
