@@ -1,10 +1,9 @@
-﻿namespace Airline_DE.Models.Assignment
+﻿using Airline_DE.Models.Receiver.DTOs;
+
+namespace Airline_DE.Models.Assignment.DTOs
 {
-    public class Assignment
+    public class CreateAssignmentDTO
     {
-        public Guid Id { get; set; }
-        public Guid ClientId { get; set; }
-        public Guid ReceiverId { get; set; }
         public decimal Height { get; set; }
         public decimal Weight { get; set; }
         public decimal Wide { get; set; }
@@ -12,6 +11,6 @@
         public string Origin { get; set; }
         public string Destination { get; set; }
         public bool IsCopyDocumentEmail { get; set; }
-
+        public CreateReceiverDTO Receiver { get; set; }
     }
 }

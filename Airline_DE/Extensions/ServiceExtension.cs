@@ -16,6 +16,7 @@ namespace Airline_DE.Extensions
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IAccountServices, AccountServices>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IAssignmentService, AssignmentService>();
             #endregion
 
             #region Repositories
