@@ -30,10 +30,10 @@ namespace Airline_DE.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAssignment([FromQuery] Guid clientId)
+        [HttpGet("id")]
+        public async Task<IActionResult> GetAssignment([FromQuery] Guid id)
         {
-            var result = await _assignmentService.GetByIdAsync(clientId);
+            var result = await _assignmentService.GetByIdAsync(id);
 
             if (result.Success)
             {
