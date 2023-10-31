@@ -5,6 +5,7 @@
         public Guid Id { get; set; }
         public Guid ClientId { get; set; }
         public Guid ReceiverId { get; set; }
+        public Guid PaymentId { get; set; }
         public decimal Height { get; set; }
         public decimal Weight { get; set; }
         public decimal Wide { get; set; }

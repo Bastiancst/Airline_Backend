@@ -7,7 +7,6 @@ using Airline_DE.Models.Employee;
 using Airline_DE.Models.FlightPlanning;
 using Airline_DE.Models.Office;
 using Airline_DE.Models.Passenger;
-using Airline_DE.Models.PassengerAsignment;
 using Airline_DE.Models.Payment;
 using Airline_DE.Models.PlanningCrew;
 using Airline_DE.Models.Receiver;
@@ -33,7 +32,6 @@ namespace Airline_DE.DbContext
         public DbSet<FlightPlanning> FlightPlannings { get ; set; } 
         public DbSet<Office> Offices { get ; set; } 
         public DbSet<Passenger> Passengers { get ; set; } 
-        public DbSet<PassengerAsignment> PassengerAsignments { get ; set; } 
         public DbSet<Payment> Payments { get ; set; } 
         public DbSet<PlanningCrew> PlanningCrews { get ; set; } 
         public DbSet<Receiver> Receivers { get ; set; } 

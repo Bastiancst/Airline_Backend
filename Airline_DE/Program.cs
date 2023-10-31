@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Airline_DE.DbContext;
 using Airline_DE.Seeds;
 using Microsoft.AspNetCore.Identity;
+using Airline_DE.Interfaces.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,7 +66,7 @@ JWTSettings.DurationInMinutes = Int32.Parse(builder.Configuration["JWTSettings:D
 EmailSettings.ApiKey = "";
 
 //connectionString = $"Server = tcp:{sqlDatabase},1433; Initial Catalog = {sqlCatalog}; Persist Security Info = False; User ID = {sqlUsername}; Password = {sqlPassword}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
-connectionString = "Server=.;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
+connectionString = "Server=BASTIAN;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
 ConnectionSettings.ConnectionString = connectionString;
 
 DomainSettings.ConfirmEmailRedirectDomain = confirmEmailDomain;
@@ -129,6 +130,9 @@ async void SeedDatabase()
         {
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
             await SeedRoles.SeedAsync(roleManager);
+            var flightPlanning = services.GetRequiredService<IFlightPlanningRepository>();
+            var airport = services.GetRequiredService<IAirportRepository>();
+            await SeedAirlane.SeedAirlaneAsync(airport, flightPlanning, false);
 
         }
         catch (Exception)

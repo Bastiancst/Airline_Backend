@@ -28,12 +28,12 @@ namespace Airline_DE.Extensions
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IFlightPlanningRepository, FlightPlanningRepository>();
             services.AddTransient<IOfficeRepository, OfficeRepository>();
-            services.AddTransient<IPassengerAsignmentRepository, PassengerAsignmentRepository>();
             services.AddTransient<IPassengerRepository, PassengerRepository>();
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<IPlanningCrewRepository, PlanningCrewRepository>();
             services.AddTransient<IReceiverRepository, ReceiverRepository>();
             services.AddTransient<IRecoverPasswordRepository, RecoverPasswordRepository>();
+            services.AddTransient<IPassengerService, PassengerService>();
 
             #endregion
 
