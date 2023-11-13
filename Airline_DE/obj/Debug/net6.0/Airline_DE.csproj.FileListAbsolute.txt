@@ -172,3 +172,4 @@ C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\ne
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\StarkbankEcdsa.dll
 C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\SendGrid.dll
 C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\StarkbankEcdsa.dll
+C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

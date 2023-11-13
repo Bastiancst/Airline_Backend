@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "URYlYFURkikfMUAVqcS79uHq7sTaUjZpXq7zC5JP0A249kCj5KxUBYKAqSVrckj5t21iasMXHwQfHr7Q6v8FAw==",
+  "dgSpecHash": "kGWCuqX7K8k4yTMBxAmxIu6ihe/fkkBhZzZMwyqS0DZ3+EWqv9xBnuSIA1nrPcToJjhR+nwyKJUXu/bBxOCPug==",
   "success": true,
   "projectFilePath": "C:\\Users\\basti\\OneDrive\\Documents\\GitHub\\Airline_Backend\\Airline_DE\\Airline_DE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\basti\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\basti\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\basti\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\basti\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\basti\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",

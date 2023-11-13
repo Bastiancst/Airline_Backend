@@ -6,6 +6,9 @@ using Airline_DE.Seeds;
 using Microsoft.AspNetCore.Identity;
 using Airline_DE.Interfaces.IRepository;
 using Airline_DE.Hubs;
+using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
+using Airline_DE.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,7 +102,9 @@ builder.Services.AddCors(options =>
                             .AllowAnyMethod();
                       });
 });
+
 builder.Services.AddSignalR();
+builder.Services.AddAutoMapper(typeof(GeneralProfile));
 
 var app = builder.Build();
 
