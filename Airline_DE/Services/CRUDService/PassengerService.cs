@@ -25,6 +25,7 @@ namespace Airline_DE.Services.CRUDService
                     Id = Guid.NewGuid(),
                     ClientId = dto.ClientId,
                     FlightPlanningId = dto.FlightPlanningId,
+                    PaymentId = Guid.NewGuid(),
                     Name = dto.Name,
                     LastName = dto.LastName,
                     Age = dto.Age,
@@ -32,7 +33,9 @@ namespace Airline_DE.Services.CRUDService
                     PhoneNumber = dto.PhoneNumber,
                     Email = dto.Email,
                     SeatNumber = dto.SeatNumber,
-                    isCopyDocumentEmail = dto.isCopyDocumentEmail
+                    isCopyDocumentEmail = dto.isCopyDocumentEmail,
+                    IdentityDocument = dto.IdentityDocument,
+                    
                 };
 
                 await _passengerRepository.CreateAsync(passenger);

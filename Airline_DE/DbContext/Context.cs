@@ -1,6 +1,7 @@
 ﻿using Airline_DE.Models.Airplane;
 using Airline_DE.Models.Airport;
 using Airline_DE.Models.Assignment;
+using Airline_DE.Models.ChatMessage;
 using Airline_DE.Models.Client;
 using Airline_DE.Models.ClientAssingnment;
 using Airline_DE.Models.Employee;
@@ -36,5 +37,6 @@ namespace Airline_DE.DbContext
         public DbSet<PlanningCrew> PlanningCrews { get ; set; } 
         public DbSet<Receiver> Receivers { get ; set; } 
         public DbSet<RecoverPassword> RecoverPasswords { get ; set; } 
+        public DbSet<ChatMessage> ChatMessages { get ; set; } 
     }
 }

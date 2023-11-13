@@ -17,10 +17,22 @@ namespace Airline_DE.Controllers
             _clientService = clientService;
         }
 
-        [HttpPost("get")]
-        public async Task<IActionResult> GetAllEmployees()
+        [HttpPost("employee")]
+        public async Task<IActionResult> GetEmployeebyClient([FromQuery] Guid id)
         {
-            var result = await _clientService.GetAllAsync();
+            var result = await _clientService.GetEmployeebyClient(id);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("invoices")]
+        public async Task<IActionResult> GetInvoicesbyClient([FromQuery] Guid id)
+        {
+            var result = await _clientService.GetInvoicesClient(id);
 
             if (result.Success)
             {
@@ -30,7 +42,7 @@ namespace Airline_DE.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> GetEmployee(string id)
+        public async Task<IActionResult> GetClient(string id)
         {
             var result = await _clientService.GetByIdAsync(Guid.Parse(id));
 
@@ -42,7 +54,7 @@ namespace Airline_DE.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateEmployee([FromBody] CreateClientDTO request)
+        public async Task<IActionResult> CreateClient([FromBody] CreateClientDTO request)
         {
             var result = await _clientService.CreateAsync(request);
 
@@ -54,7 +66,7 @@ namespace Airline_DE.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateEmployee([FromBody] UpdateClientDTO request, string id)
+        public async Task<IActionResult> UpdateClient([FromBody] UpdateClientDTO request, string id)
         {
             var result = await _clientService.UpdateAsync(request, Guid.Parse(id));
 
@@ -66,7 +78,7 @@ namespace Airline_DE.Controllers
         }
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteEmployee(string id)
+        public async Task<IActionResult> DeleteClient(string id)
         {
             var result = await _clientService.DeleteAsync(Guid.Parse(id));
 

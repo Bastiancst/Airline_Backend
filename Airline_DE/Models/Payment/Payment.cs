@@ -6,7 +6,9 @@ namespace Airline_DE.Models.Payment
     {
         public Guid Id { get; set; }
         public Guid ClientId { get; set; }
-        public PaymentType Type { get; set; }
+        public string BuyOrder { get; set; }
+        public ServiceType Type { get; set; }
         public decimal Amount { get; set; }
+        public DateTime Date { get; set; }
     }
 }

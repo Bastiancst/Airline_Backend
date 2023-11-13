@@ -5,6 +5,7 @@ using Airline_DE.DbContext;
 using Airline_DE.Seeds;
 using Microsoft.AspNetCore.Identity;
 using Airline_DE.Interfaces.IRepository;
+using Airline_DE.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,7 +67,7 @@ JWTSettings.DurationInMinutes = Int32.Parse(builder.Configuration["JWTSettings:D
 EmailSettings.ApiKey = "";
 
 //connectionString = $"Server = tcp:{sqlDatabase},1433; Initial Catalog = {sqlCatalog}; Persist Security Info = False; User ID = {sqlUsername}; Password = {sqlPassword}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
-connectionString = "Server=.;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
+connectionString = "Server=BASTIAN;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
 ConnectionSettings.ConnectionString = connectionString;
 
 DomainSettings.ConfirmEmailRedirectDomain = confirmEmailDomain;
@@ -92,11 +93,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: SpecificOrigins,
                       policy =>
                       {
-                          policy.AllowAnyOrigin()
+                          policy.WithOrigins("https://localhost:7163")
+                            .AllowCredentials()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                       });
 });
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -116,6 +119,8 @@ app.UseCors(SpecificOrigins);
 SeedDatabase();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
 

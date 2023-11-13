@@ -2,6 +2,7 @@
 using Airline_DE.Interfaces.IRepository;
 using Airline_DE.Repository;
 using Airline_DE.Services.AccountServices;
+using Airline_DE.Services.ComunicationService;
 using Airline_DE.Services.CRUDService;
 using Airline_DE.Services.EmailService;
 
@@ -17,6 +18,7 @@ namespace Airline_DE.Extensions
             services.AddTransient<IAccountServices, AccountServices>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IAssignmentService, AssignmentService>();
+            services.AddTransient<IChatService, ChatService>();
             #endregion
 
             #region Repositories
@@ -34,6 +36,7 @@ namespace Airline_DE.Extensions
             services.AddTransient<IReceiverRepository, ReceiverRepository>();
             services.AddTransient<IRecoverPasswordRepository, RecoverPasswordRepository>();
             services.AddTransient<IPassengerService, PassengerService>();
+            services.AddTransient<IChatMessageRepository, ChatMessageRepository>();
 
             #endregion
 
