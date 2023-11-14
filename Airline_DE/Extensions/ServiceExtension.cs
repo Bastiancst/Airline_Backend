@@ -2,10 +2,12 @@
 using Airline_DE.Interfaces.IRepository;
 using Airline_DE.Mappings;
 using Airline_DE.Repository;
+using Airline_DE.Services;
 using Airline_DE.Services.AccountServices;
 using Airline_DE.Services.ComunicationService;
 using Airline_DE.Services.CRUDService;
 using Airline_DE.Services.EmailService;
+using Airline_DE.Services.PaymentService;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using System.Reflection;
@@ -22,7 +24,9 @@ namespace Airline_DE.Extensions
             services.AddTransient<IAccountServices, AccountServices>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IAssignmentService, AssignmentService>();
-            services.AddTransient<IChatService, ChatService>();        
+            services.AddTransient<IChatService, ChatService>();
+            services.AddTransient<ITransactionService, TransactionService>(); 
+            services.AddSingleton<IRestClientFactory, RestClientFactory>(); 
             #endregion
 
             #region Repositories

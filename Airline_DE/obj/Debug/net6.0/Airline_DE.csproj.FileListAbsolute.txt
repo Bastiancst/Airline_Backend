@@ -173,3 +173,8 @@ C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\ne
 C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\SendGrid.dll
 C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\StarkbankEcdsa.dll
 C:\Users\basti\OneDrive\Documents\GitHub\Airline_Backend\Airline_DE\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\RestSharp.dll
+C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\System.Text.Json.dll
+C:\Developing\repositories\Airline D&E\Airline_Backend\Airline_DE\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

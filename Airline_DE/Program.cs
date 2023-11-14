@@ -70,12 +70,13 @@ JWTSettings.DurationInMinutes = Int32.Parse(builder.Configuration["JWTSettings:D
 EmailSettings.ApiKey = "";
 
 //connectionString = $"Server = tcp:{sqlDatabase},1433; Initial Catalog = {sqlCatalog}; Persist Security Info = False; User ID = {sqlUsername}; Password = {sqlPassword}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
-connectionString = "Server=BASTIAN;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
+connectionString = "Server=.;Database=AirlineDE;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
 ConnectionSettings.ConnectionString = connectionString;
 
 DomainSettings.ConfirmEmailRedirectDomain = confirmEmailDomain;
 DomainSettings.AfterConfirmEmailDomain = redirectEmailDomain;
 DomainSettings.RedirectRecoveryDomain = redirectRecoveryDomain;
+DomainSettings.PaymentUrl = builder.Configuration["PaymentUrl"];
 
 #endregion
 
@@ -96,7 +97,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: SpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("https://localhost:7163")
+                          policy.WithOrigins("https://localhost:7163", "http://localhost:4200")
                             .AllowCredentials()
                             .AllowAnyHeader()
                             .AllowAnyMethod();

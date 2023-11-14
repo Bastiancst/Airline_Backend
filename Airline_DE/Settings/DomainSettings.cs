@@ -5,5 +5,6 @@
         public static string ConfirmEmailRedirectDomain = "";
         public static string AfterConfirmEmailDomain = "";
         public static string RedirectRecoveryDomain = "";
+        public static string PaymentUrl = "";
     }
 }
