@@ -114,7 +114,7 @@ namespace Airline_DE.Services.AccountServices
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, RoleType.Client.ToString());
+                    await _userManager.AddToRoleAsync(user, RoleType.Admin.ToString());
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
