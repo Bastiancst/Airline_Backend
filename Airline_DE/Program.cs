@@ -92,6 +92,19 @@ builder.Services.AddDbContext<Context>(option =>
 {
     option.UseSqlServer(ConnectionSettings.ConnectionString);
 });
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(name: SpecificOrigins,
+//                      policy =>
+//                      {
+//                          //policy.WithOrigins("https://localhost:7163", "http://localhost:4200", "https://d691-200-27-88-4.ngrok.io")
+//                          policy.AllowAnyOrigin()
+//                            //.AllowCredentials()
+//                            .AllowAnyHeader()
+//                            .AllowAnyMethod();
+//                      });
+//});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: SpecificOrigins,
