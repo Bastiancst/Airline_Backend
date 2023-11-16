@@ -97,13 +97,13 @@ namespace Airline_DE.Controllers
                 if (creationResponse.Success)
                 {
 
-                    await _emailService.SendBasicEmailAsync(new BasicEmailRequestDTO
-                    {
-                        Subject = "Welcome to Tesseract!",
-                        Message = $"Hello! {creationResponse.Result.UserId} Welcome to Tesseract Ecosystem! \n please confirm your account with the following URL: \n",
-                        ReceiverEmail = $"{creationResponse.Result.Email}",
-                        ReceiverName = $"{creationResponse.Result.Email}"
-                    });
+                    //await _emailService.SendBasicEmailAsync(new BasicEmailRequestDTO
+                    //{
+                    //    Subject = "Welcome to Tesseract!",
+                    //    Message = $"Hello! {creationResponse.Result.UserId} Welcome to Tesseract Ecosystem! \n please confirm your account with the following URL: \n",
+                    //    ReceiverEmail = $"{creationResponse.Result.Email}",
+                    //    ReceiverName = $"{creationResponse.Result.Email}"
+                    //});
 
                     return Ok(creationResponse);
                 }

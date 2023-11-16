@@ -17,6 +17,7 @@ namespace Airline_DE.Services.CRUDService
 
         public async Task<ApiResponse<Guid>> CreateAsync(List<CreatePassengerDTO> request)
         {
+            Guid clientId = Guid.Empty;
 
             foreach (var dto in request)
             {
@@ -38,11 +39,13 @@ namespace Airline_DE.Services.CRUDService
                     
                 };
 
+                clientId = passenger.ClientId;
+
                 await _passengerRepository.CreateAsync(passenger);
             }
 
 
-            return new ApiResponse<Guid>(Guid.Empty);
+            return new ApiResponse<Guid>(clientId);
         }
 
         public async Task<ApiResponse<IEnumerable<Passenger>>> GetAllAsync(Guid clienId, Guid flightPlanningId)
